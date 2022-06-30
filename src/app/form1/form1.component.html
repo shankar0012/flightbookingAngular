@@ -1,0 +1,6 @@
+<p>form1 works!</p>
+<form [formGroup]="formdata" (ngSubmit)="onSubmit(formdata.value)">
+    <input type="text" name="user" placeholder="batch22" formControlName="username">
+    <input type="text" name="user1" placeholder="batch2" formControlName="username1">
+    <input type="submit" value="click here">
+</form>

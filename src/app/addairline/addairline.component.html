@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-center ">
+    <div class="card m-3">
+        <h5 class="card-header " style="background-color: #11d5bf;">Add Airline</h5>
+        <div class="card col-md-12 ">
+            <div class="card-body ">
+                <form [formGroup]="AddairlineForm" (ngSubmit)="onSubmit()">
+                    
+
+                        <div class="form-group ">
+                            <label>Airline Name</label>
+                            <input type="text" formControlName="AirlineName" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.AirlineName.errors }" />
+                            <div *ngIf="submitted && f.AirlineName.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.AirlineName.errors.required">Airline Name is required</div> 
+                            </div>
+                        </div>
+
+                        
+                       
+                   
+                    
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1">Save</button>
+                        <button class="btn btn-secondary" type="reset" (click)="onReset()">Clear</button>
+                   
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,243 @@
+<div class="d-flex justify-content-center ">
+  <div class="card ">
+    <h5 class="card-header " style="background-color: #11d5bf;">Search Flight</h5>
+    <div class="card col-md-12 ">
+      <div class="card-body ">
+        <form [formGroup]="FlightSearchForm" (ngSubmit)="onSubmit()">
+          <div class="form-row ">
+            <div class="form-group col-3">
+              <label>From City</label>
+              <input type="text" formControlName="FromCity" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.FromCity.errors }" />
+            </div>
+            <div class="form-group col-3">
+              <label>To city</label>
+              <input type="text" formControlName="ToCity" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.ToCity.errors }" />
+            </div>
+            <div class="form-group col-3">
+              <label> Date</label>
+              <input type="date" formControlName="FromDate" [min]="minDate | date:'yyyy-MM-dd'" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.FromDate.errors }" />
+
+            </div>
+            <div class="form-group col-3">
+              <label>Trip type</label>
+              <select formControlName="TripType" class="form-control" [ngClass]="{ 'is-invalid' : submitted &&
+                f.TripType.errors }">     
+                                          <option selected value="OneWay">OneWay</option>     
+                                          <option value="RoundTrip">RoundTrip</option>  
+                                                 
+                                      </select>   
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-primary mr-1">Search</button>
+          </div>
+
+        </form>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Flight no</th>
+              <th>Flight Name</th>
+               <th>From City</th>
+              <th>To City</th>
+              <th>FromDate</th>
+              <th>Amount</th>
+              <th>Book</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="flightlist">
+              <tr *ngFor="let flight of flightlist">
+                <td>{{flight.flightNo}}</td>
+                <td>{{flight.flightName}}</td>
+                <td>{{flight.fromCity}}</td>
+                <td>{{flight.toCity}}</td>
+                <td>{{flight.fromDate| date: 'dd/MM/yyyy hh:mm a'}}</td>
+                <td>{{flight.ticketCost}}</td>
+                <td><button (click)="bookTicket(flight.schId)" class="btn btn-primary">book</button></td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content" style="width: 100%;">
+        <div class="modal-header">
+          <h5 class="modal-title">Book Ticket</h5>
+        </div>
+        <div class="modal-body">
+          <div class="card-body col-md-12">
+            <form [formGroup]="bookAirlineForm" (ngSubmit)="onbookSubmit()">
+              <div class="form-row">
+
+                <div class="form-group col-3">
+                  <label>Select Airline</label>
+
+                  <select readonly formControlName="AirlineId" class="form-control">
+                    <option selected [value]="0" disabled>--Select--</option>
+                    <option *ngFor="let airline of AirlinesData" [value]="airline.airlineId"
+                      [ngClass]="{ 'is-invalid': submitted1 && b.AirlineId.errors }">
+                      {{airline.airlineName}}
+                    </option>
+
+                  </select>
+
+
+                </div>
+
+                <div class="form-group col-3">
+                  <label>EmailId</label>
+                  <input readonly type="text" formControlName="EmailId" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.EmailId.errors }" />
+
+                </div>
+
+
+                <div class="form-group col-3">
+                  <label>From City</label>
+                  <input type="text" readonly formControlName="FromCity" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.FromCity.errors }" />
+                </div>
+                <div class="form-group col-3">
+                  <label>To city</label>
+                  <input type="text" readonly formControlName="ToCity" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.ToCity.errors }" />
+
+                </div>
+              </div>
+              <div class="form-row ">
+                <div class="form-group col-3">
+                  <label>Flight number</label>
+                  <input type="text" readonly formControlName="FlightNo" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.FlightNo.errors }" />
+                </div>
+                <div class="form-group col-3">
+                  <label>Flight name</label>
+                  <input type="text" readonly formControlName="FlightName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.FlightName.errors }" />
+
+                </div>
+
+                <div class="form-group col-3">
+                  <label>From Date</label>
+                  <input type="datetime-local" readonly formControlName="FromTime" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.FromTime.errors }" />
+                </div>
+                <div class="form-group col-3">
+                  <label>To Date</label>
+                  <input type="datetime-local" readonly formControlName="ToTime" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.ToTime.errors }" />
+
+                </div>
+              </div>
+              <div class="form-row ">
+                <div class="form-group col-3">
+                  <label>No of seats</label>                 
+                    <select formControlName="NoOfSeats" class="form-control" (change)="onOptionSelected($event)" [ngClass]="{ 'is-invalid': submitted1 && b.NoOfSeats.errors }" >
+                      <option value=""></option>
+                      <option *ngFor="let i of [1,2,3,4]">{{i}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-3">
+                  <label>Amount</label>
+                  <input type="number" readonly formControlName="Amount" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.Amount.errors }" />
+
+                </div>
+
+                <div class="form-group col-3">
+                  <label>Trip type</label>
+                  <select formControlName="TripType" class="form-control" [ngClass]="{ 'is-invalid' : submitted1 &&
+                    b.TripType.errors }">     
+                                              <option selected value="OneWay">OneWay</option>     
+                                              <option value="RoundTrip">RoundTrip</option>  
+                                                     
+                                          </select>                   
+                     
+                </div>
+                <div class="form-group col-3">
+                  <label>Discount</label>
+                  <input type="number" readonly formControlName="Discount" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.Discount.errors }" />
+                </div>
+              </div>
+              <div class="form-row ">
+                <div class="form-group col-6">
+                  <label>Total Ticket Cost</label>
+                  <input type="number" readonly formControlName="TotalAmount" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted1 && b.TotalAmount.errors }" />
+
+                </div>
+                <div class="form-group col-6">
+                  <input style="display: none;" type="text" formControlName="UserId" class="form-control" />
+
+                </div>
+              </div>
+              <div *ngFor="let PersonDetails of ticketFormGroups; let i = index" class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <h5 class="card-title">Person {{i + 1}}</h5>
+                  <div [formGroup]="PersonDetails" class="form-row">
+                    <div class="form-group col-4">
+                      <label>Name</label>
+                      <input type="text" formControlName="name" class="form-control" />
+
+
+                    </div>
+                    <div class="form-group col-2">
+                      <label>Age</label>
+                      <input type="number" min="1" max="100" formControlName="age" class="form-control" />
+
+                    </div>
+                    <div class="form-group col-2">
+                      <label>gender</label>
+
+                      <select formControlName="gender" class="form-control" >     
+                                                  <option selected value="Male">Male</option>     
+                                                  <option value="Female">Female</option>                                
+                         
+                                              </select>   
+
+                    </div>
+                    <div class="form-group col-2">
+                      <label>mealType</label>
+
+                      <select formControlName="mealType" class="form-control" >     
+                                                  <option selected value="Veg">Veg</option>     
+                                                  <option value="NonVeg">NonVeg</option>                                
+                         
+                                              </select> 
+
+                    </div>
+                    <div class="form-group col-2">
+                      <label>seatNo</label>
+                      <input type="text" formControlName="seatNo" class="form-control" />
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-primary mr-1">Book</button>
+                <button type="button" class="btn btn-danger" (click)="closePopup()"> Close
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-content>
+        <div class="row example-h2">
+        <div class="col-md-10"> <h2 >Flight Manegement</h2></div>
+        <div class="col-md-1"><a routerLink="/login">Logout</a></div></div>
+      <mat-tab-group class="demo-tab-group ">
+        <mat-tab  label="Add Airline" >
+          <app-addairline></app-addairline>
+        </mat-tab>
+        <mat-tab label="Block Airline">
+         <app-blockairline></app-blockairline> 
+        </mat-tab>
+        <mat-tab label="Schedule Airline">
+            <app-scheduleairline></app-scheduleairline> 
+           </mat-tab>
+        
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  
+ 
+  

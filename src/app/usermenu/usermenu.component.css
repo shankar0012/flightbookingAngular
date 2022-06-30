@@ -1,0 +1,25 @@
+
+  .example-h2
+  {
+      color: rgb(2, 2, 27);
+      background-color: rgb(69, 193, 241);
+  }
+  .mat-tab-body-content {
+      
+    height: 1000px!important;
+    min-height: inherit;
+    max-height: inherit;
+  }
+  ::ng-deep .mat-tab-header {
+    overflow-x: scroll !important;
+  }
+  
+  ::ng-deep .mat-tab-label-container { 
+    overflow: visible !important;
+  }
+  
+  ::ng-deep .mat-tab-header::-webkit-scrollbar { 
+    display: none;
+  }
+    
+    

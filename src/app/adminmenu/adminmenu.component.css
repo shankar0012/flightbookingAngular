@@ -1,0 +1,18 @@
+.demo-tab-group {
+    border: 1px solid #180101;
+    height: 500px;
+    background-color: #abedf1;
+   
+    font-weight: 700;
+  }
+  
+  .demo-tab-content {
+    padding: 2px;
+   
+  }
+  .example-h2
+  {
+      color: rgb(2, 2, 27);
+      background-color: rgb(69, 193, 241);
+  }
+ 

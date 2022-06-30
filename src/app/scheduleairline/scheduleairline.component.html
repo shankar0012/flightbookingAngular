@@ -1,0 +1,164 @@
+<div class="d-flex justify-content-center ">
+    <div class="card m-3">
+        <h5 class="card-header " style="background-color: #11d5bf;">Schedule Flight</h5>
+        <div class="card col-md-12 ">
+            <div class="card-body ">
+                <form [formGroup]="ScheduleAirlineForm" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+
+                        <div class="form-group col-6">
+                            <label>Select Airline</label>
+
+                            <select formControlName="AirlineId" class="form-control">
+                                <option selected [value]="0" disabled>--Select--</option>
+                                <option *ngFor="let airline of AirlinesData" [value]="airline.airlineId">
+                                    {{airline.airlineName}}
+                                </option>
+
+                            </select>
+
+                            <div *ngIf="submitted && f.AirlineId.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.AirlineId.errors.required">Select Airline</div> 
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Instrument Used</label>
+                            <input type="text" formControlName="InstrumentUsed" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.InstrumentUsed.errors }" />
+                            <div *ngIf="submitted && f.InstrumentUsed.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.InstrumentUsed.errors.required">InstrumentUsed is required</div> 
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-6">
+                            <label>Flight Name</label>
+
+                            <input type="text" formControlName="FlightName" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FlightName.errors }" />
+                            <div *ngIf="submitted && f.FlightName.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FlightName.errors.required">FlightName is required</div> 
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>Flight No</label>
+                            <input type="text" formControlName="FlightNo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FlightNo.errors }" />
+                            <div *ngIf="submitted && f.FlightNo.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FlightNo.errors.required">FlightNo is required</div> 
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>From City</label>
+                            <input type="text" formControlName="FromCity" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FromCity.errors }" />
+                            <div *ngIf="submitted && f.FromCity.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FromCity.errors.required">FromCity is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>To city</label>
+                            <input type="text" formControlName="ToCity" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.ToCity.errors }" />
+                            <div *ngIf="submitted && f.ToCity.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.ToCity.errors.required">ToCity is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>From Date</label>
+                            <input type="datetime-local" formControlName="FromDate" [min]="minDate | date:'yyyy-MM-dd hh:mm'" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FromDate.errors }" />
+                            <div *ngIf="submitted && f.FromDate.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FromDate.errors.required">FromDate is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>To Date</label>
+                            <input type="datetime-local" formControlName="ToDate" class="form-control" [min]="minDate | date:'yyyy-MM-dd hh:mm'"
+                                [ngClass]="{ 'is-invalid': submitted && f.ToDate.errors }" />
+                            <div *ngIf="submitted && f.ToDate.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.ToDate.errors.required">ToDate is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>BC seats</label>
+                            <input type="number" formControlName="BCSeats" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.BCSeats.errors }" />
+                            <div *ngIf="submitted && f.BCSeats.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.BCSeats.errors.required">BCSeats is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Non Bc Seats</label>
+                            <input type="number" formControlName="NBCSeats" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.NBCSeats.errors }" />
+                            <div *ngIf="submitted && f.NBCSeats.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.NBCSeats.errors.required">NBCSeats is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>Scheduled Days</label>
+                            <select formControlName="ScheduledDays" class="form-control" [ngClass]="{ 'is-invalid' :
+                                submitted && f.ScheduledDays.errors }">     
+                                                          <option value="Sunday">Sunday</option>     
+                                                          <option value="Monday">Monday</option>   
+                                                            <option value="Thuesday">Thuesday</option>   
+                                                            <option value="Wednesday">Wednesday</option>   
+                                                            <option value="Thuersday">Thuersday</option>     
+                                                            <option value="Friday">Friday</option>     
+                                                            <option value="Saturday">Saturday</option>     
+                                                      </select>                   
+                                    <div *ngIf="submitted && f.ScheduledDays.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.title.ScheduledDays.required">ScheduledDays is required</div> 
+                            </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Meals</label>
+                            <select formControlName="Meals" class="form-control" [ngClass]="{ 'is-invalid' : submitted &&
+                                f.Meals.errors }">     
+                                                          <option value="Veg">Veg</option>     
+                                                          <option value="Non Veg">Non Veg</option>   
+                                                               
+                                                      </select>                   
+                                    <div *ngIf="submitted && f.Meals.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.Meals.errors.required">Meals is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label> Ticket Cost</label>
+                            <input type="number" formControlName="TicketCost" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.TicketCost.errors }" />
+                            <div *ngIf="submitted && f.TicketCost.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.TicketCost.errors.required">TicketCost is required</div>
+                                 </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Discount</label>
+                            <input type="number" formControlName="Discount" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.Discount.errors }" />
+                            <div *ngIf="submitted && f.Discount.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.Discount.errors.required">Discount is required</div> </div>
+                        </div>
+                    </div>
+                   
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1">Schedule</button>
+                        <button class="btn btn-secondary" type="reset" (click)="onReset()">Clear</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>

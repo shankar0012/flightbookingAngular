@@ -1,0 +1,68 @@
+<div class="card-body">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-center ">
+            <div class="card col-md-12 ">
+                <h5 class="card-header " style="background-color: #11d5bf;">Block Airline</h5>
+                <div class="card col-md-12 ">
+                    <div class="card-body ">
+                        <form [formGroup]="AddairlineForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group ">
+                                <label>Airline Name</label>
+                                <select formControlName="AirlineId" class="form-control">
+                                    <option selected [value]="0" disabled>--Select--</option>
+                                    <option *ngFor="let airline of AirlinesData" [value]="airline.airlineId">
+                                        {{airline.airlineName}}
+                                    </option>
+
+                                </select>
+
+                                <div *ngIf="submitted && f.AirlineId.errors" class="invalid-feedback"> 
+                                      <div *ngIf="f.AirlineId.errors.required">Select Airline</div> 
+                                </div>
+                            </div>
+                            <div class="form-group ">
+
+                                <input type="checkbox" formControlName="IsActive" id="acceptTemrs"
+                                    class="orm-cfheck-input"
+                                    [ngClass]="{ 'is-invalid': submitted && f.IsActive.errors }" />
+                                <!-- <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label> -->
+                                <label>IsActive</label>
+
+                            </div>
+
+
+
+
+
+                            <div class="text-center">
+                                <button class="btn btn-primary mr-1">Update</button>
+                                <button class="btn btn-secondary" type="reset" (click)="onReset()">Clear</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <table class="table table-striped table-bordered" style="background-color: white;">
+                        <thead>
+                            <tr>
+                                <th>Airline Name</th>
+                                <th>Status</th>
+            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngIf="AirlinesData">
+                                <tr *ngFor="let airline of AirlinesData">
+                                    <td>{{airline.airlineName}}</td>
+                                    <td>{{airline.isActive}}</td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,168 @@
+<div class="d-flex justify-content-center ">
+    <div class="card ">
+        <h5 class="card-header " style="background-color: #11d5bf;">Search Ticket</h5>
+        <div class="card col-md-12 ">
+            <div class="card-body ">
+                <form [formGroup]="FlightSearchForm" (ngSubmit)="onSubmit()">
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>PNR</label>
+                            <input type="text" formControlName="PNR" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.PNR.errors }" />
+                        </div>
+                        <div class="form-group col-6">
+                            <label>EmailId</label>
+                            <input type="text" formControlName="EmailId" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }" />
+                        </div>
+
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1">Search</button>
+                    </div>
+
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>PNR</th>
+                            <th>EmailId</th>
+                            <th>From City</th>
+                            <th>To City</th>
+                            <th>Booking Date</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="ticketlist">
+                            <tr *ngFor="let ticket of ticketlist">
+                                <td>{{ticket.pnr}}</td>
+                                <td>{{ticket.emailId}}</td>
+                                <td>{{ticket.fromCity}}</td>
+                                <td>{{ticket.toCity}}</td>
+                                <td>{{ticket.addTime| date: 'dd/MM/yyyy hh:mm a'}}</td>
+                                <td><button (click)="ViewTicket(ticket.pnr)" class="btn btn-primary">View</button></td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div id="contentToConvert"  class="modal-content" style="width: 100%;">
+                <div class="modal-header" style="background-color:#4675f7;">
+                    <h5 class="modal-title">Ticket</h5>
+                </div>
+                <div  class="modal-body" style="background-color: rgb(238, 173, 94);">
+                    
+                    <div class="card-body col-md-12">
+                        <form [formGroup]="bookAirlineForm">
+                            <span *ngFor="let tkt of flightlist1">
+                                <div class="row ">
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">PNR: </label> {{tkt.pnr}}
+                                    </div>
+
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">FlightNo: </label> {{tkt.flightNo}}
+
+                                    </div>
+
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">FlightName: </label> {{tkt.flightName}}  
+                                                       
+                                           
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">FromCity: </label> {{tkt.fromCity}}
+                                    </div>
+
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">ToCity: </label> {{tkt.toCity}}
+                                    </div>
+
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">Booked Date: </label> {{tkt.addTime| date:
+                                        'dd/MM/yyyy'}}
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    
+
+                                    <div class=" col-6">
+                                        <label style="font-weight: bold;">FromTime: </label> {{tkt.fromTime| date:
+                                        'dd/MM/yyyy hh:mm a'}}
+
+                                    </div>
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">ToTime: </label> {{tkt.toTime| date:
+                                        'dd/MM/yyyy hh:mm a'}}
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">Discount: </label> {{tkt.discount}}
+                                    </div>
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">TripType: </label> {{tkt.tripType}}
+
+                                    </div>
+                                    <div class=" col-4">
+                                        <label style="font-weight: bold;">TotalAmount: </label> <span
+                                            style="font-size: 22px;">{{tkt.totalAmount}}</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Age</th>
+                                                <th>Gender</th>
+                                                <th>Meal</th>
+                                                <th>Seat No</th>                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <ng-container *ngIf="tkt.personDetails">
+                                                <tr *ngFor="let person of tkt.personDetails">
+                                                    <td>{{person.name}}</td>
+                                                    <td>{{person.age}}</td>
+                                                    <td>{{person.gender}}</td>
+                                                    <td>{{person.mealType}}</td>
+                                                    <td>{{person.seatNo}}</td>
+                                               </tr>
+                                            </ng-container>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-primary mr-1" (click)="SavePDF()">Download</button>
+                                    <button type="button" class="btn btn-danger" (click)="closePopup()"> Close
+                                    </button>
+                                </div>
+                            </span>
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

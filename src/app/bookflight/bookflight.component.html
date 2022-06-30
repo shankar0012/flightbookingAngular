@@ -1,0 +1,146 @@
+<div class="d-flex justify-content-center ">
+    <div class="card m-3">
+        <h5 class="card-header " style="background-color: #11d5bf;">Book Flight</h5>
+        <div class="card col-md-12 ">
+            <div class="card-body ">
+                <form [formGroup]="ScheduleAirlineForm" (ngSubmit)="onSubmit()">
+                    <div class="form-row">
+
+                        <div class="form-group col-6">
+                            <label>Select Airline</label>
+
+                            <select formControlName="AirlineId" class="form-control">
+                                <option selected [value]="0" disabled>--Select--</option>
+                                <option *ngFor="let airline of AirlinesData" [value]="airline.airlineId">
+                                    {{airline.airlineName}}
+                                </option>
+
+                            </select>
+
+                            <div *ngIf="submitted && f.AirlineId.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.AirlineId.errors.required">Select Airline</div> 
+                            </div>
+                        </div>
+
+                        <div class="form-group col-6">
+                            <label>EmailId</label>
+                            <input readonly type="text" formControlName="EmailId" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.EmailId.errors }" />
+                            <div *ngIf="submitted && f.EmailId.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.EmailId.errors.required">EmailId is required</div> 
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>From City</label>
+                            <input type="text" readonly formControlName="FromCity" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FromCity.errors }" />
+                            <div *ngIf="submitted && f.FromCity.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FromCity.errors.required">FromCity is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>To city</label>
+                            <input type="text" readonly formControlName="ToCity" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.ToCity.errors }" />
+                            <div *ngIf="submitted && f.ToCity.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.ToCity.errors.required">ToCity is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>Flight number</label>
+                            <input type="text" readonly formControlName="FlightNo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FlightNo.errors }" />
+                            <div *ngIf="submitted && f.FlightNo.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FlightNo.errors.required">FlightNo is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Flight name</label>
+                            <input type="text" readonly formControlName="FlightName" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FlightName.errors }" />
+                            <div *ngIf="submitted && f.FlightName.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FlightName.errors.required">FlightName is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>From Date</label>
+                            <input type="datetime-local"  readonly formControlName="FromTime" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.FromTime.errors }" />
+                            <div *ngIf="submitted && f.FromTime.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.FromTime.errors.required">FromTime is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>To Date</label>
+                            <input type="datetime-local" readonly formControlName="ToTime" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.ToTime.errors }" />
+                            <div *ngIf="submitted && f.ToTime.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.ToTime.errors.required">ToTime is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>No of seats</label>
+                            <input type="number" formControlName="NoOfSeats" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.NoOfSeats.errors }" />
+                            <div *ngIf="submitted && f.NoOfSeats.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.NoOfSeats.errors.required">NoOfSeats is required</div> </div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Amount</label>
+                            <input type="number" readonly formControlName="Amount" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.Amount.errors }" />
+                            <div *ngIf="submitted && f.Amount.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.Amount.errors.required">Amount is required</div> </div>
+
+                        </div>
+                    </div>
+                    <div class="form-row ">
+                        <div class="form-group col-6">
+                            <label>Trip type</label>
+                            <select formControlName="TripType" class="form-control" [ngClass]="{ 'is-invalid' :
+                                submitted && f.TripType.errors }">     
+                                                          <option selected value="OneWay">OneWay</option>     
+                                                          <option value="RoundTrip">RoundTrip</option>  
+                                                                 
+                                                      </select>                   
+                                    <div *ngIf="submitted && f.TripType.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.title.TripType.required">TripType is required</div> 
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-row ">
+                       
+                        <div class="form-group col-6">
+                            <label>Discount</label>
+                            <input type="number" readonly formControlName="Discount" class="form-control"
+                                [ngClass]="{ 'is-invalid': submitted && f.Discount.errors }" />
+                            <div *ngIf="submitted && f.Discount.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.Discount.errors.required">Discount is required</div> </div>
+
+                        </div>
+                        <div class="form-group col-6">
+                            <label>Total Ticket Cost</label>
+                            <input [readonly]="true" type="number" formControlName="TotalAmount" class="form-control" 
+                                [ngClass]="{ 'is-invalid': submitted && f.TotalAmount.errors }" />
+                            <div *ngIf="submitted && f.TotalAmount.errors" class="invalid-feedback"> 
+                                  <div *ngIf="f.TotalAmount.errors.required">TotalAmount is required</div>
+                                 </div>
+                        </div>
+                    </div>
+                   
+                    <div class="text-center">
+                        <button class="btn btn-primary mr-1">Book</button>
+                        <button class="btn btn-secondary" type="reset" (click)="onReset()">Clear</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
